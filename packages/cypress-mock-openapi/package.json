@@ -5,8 +5,5 @@
   "main": "index.js",
   "repository": "https://github.com/heetch/frontend-tools",
   "author": "Heetch",
-  "license": "MIT",
-  "devDependencies": {
-    "cypress": "^6.0.1"
-  }
+  "license": "MIT"
 }
