@@ -1,6 +1,6 @@
 {
   "name": "@heetch/jest-mock-openapi",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "Jest helper to mock fetches using JSON fixtures or OpenAPI examples",
   "main": "index.js",
   "repository": "https://github.com/heetch/frontend-tools",
