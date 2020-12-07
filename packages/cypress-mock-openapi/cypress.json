@@ -1,0 +1,8 @@
+{
+  "fixturesFolder": false,
+  "integrationFolder": "test/specs",
+  "env": {
+    "openapiPath": "test/openapi.yaml",
+    "apiPrefix": "http://api-prefix"
+  }
+}

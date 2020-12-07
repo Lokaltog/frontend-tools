@@ -1,0 +1,45 @@
+openapi: 3.0.0
+info:
+  title: Testing cypress package
+  description: Some examples to test packages
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+paths:
+  /users:
+    get:
+      summary: Returns a list of users.
+      description: A list of users
+      responses:
+        '200':
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  users:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        age:
+                          type: number
+              examples:
+                OK:
+                  value:
+                    users:
+                      - name: Luke
+                        age: 31
+                      - name: Han
+                        age: 40
+                      - name: Chewy
+                        age: 50
+                EMPTY:
+                  value:
+                    users: []
+
+
+
