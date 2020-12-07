@@ -5,13 +5,8 @@
     "packages/*"
   ],
   "devDependencies": {
-    "cypress": "^6.0.1",
-    "jest": "^26.6.3",
     "lerna": "^3.22.1",
     "prettier": "^2.2.1"
-  },
-  "scripts": {
-    "test": "lerna exec yarn test"
   },
   "dependencies": {
     "@heetch/cypress-mock-openapi": "file:packages/cypress-mock-openapi",

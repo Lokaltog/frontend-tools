@@ -7,10 +7,17 @@
   "author": "Heetch",
   "license": "MIT",
   "scripts": {
-    "test": "cypress run"
+    "test": "cypress run",
+    "test:open": "start-test 8080 'cypress open'",
+    "start": "http-server ./test"
   },
   "dependencies": {
     "@stoplight/prism-cli": "^4.1.2",
     "@stoplight/prism-http": "^4.1.2"
+  },
+  "devDependencies": {
+    "cypress": "^6.0.1",
+    "http-server": "^0.12.3",
+    "start-server-and-test": "^1.11.6"
   }
 }
