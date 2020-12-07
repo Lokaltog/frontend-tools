@@ -5,5 +5,8 @@
   "main": "index.js",
   "repository": "https://github.com/heetch/frontend-tools",
   "author": "Heetch",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "test": "echo 'test'"
+  }
 }

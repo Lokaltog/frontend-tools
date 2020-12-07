@@ -10,6 +10,9 @@
     "lerna": "^3.22.1",
     "prettier": "^2.2.1"
   },
+  "scripts": {
+    "test": "lerna exec yarn test"
+  },
   "dependencies": {
     "@heetch/cypress-mock-openapi": "file:packages/cypress-mock-openapi",
     "@heetch/jest-mock-openapi": "file:packages/jest-mock-openapi"
