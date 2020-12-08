@@ -6,7 +6,7 @@ const {
 function mockWithOpenAPI(options = {}) {
   const { url, exampleKey, method, openapiPath } = options;
 
-  return getHttpOperationsFromSpec(openapiPath).then((operations) => {
+  return getHttpOperationsFromSpec(openapiPath).then(operations => {
     const prism = Prism.createClientFromOperations(operations, {
       mock: { dynamic: false, exampleKey },
     });

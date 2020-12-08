@@ -1,0 +1,27 @@
+name: Push
+
+on: [push]
+
+jobs:
+  cypress:
+    runs-on: ubuntu-16.04
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v1
+
+      - name: Linting
+        with:
+          command: yarn lint
+
+      - name: cypress-mock-openapi
+        uses: cypress-io/github-action@v2
+        with:
+          command: yarn test
+          working-directory: packages/cypress-mock-openapi
+
+      - name: Upload test artifacts
+        uses: actions/upload-artifact@v1
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots

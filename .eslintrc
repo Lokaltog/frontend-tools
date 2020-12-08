@@ -1,0 +1,16 @@
+{
+  "extends": ["airbnb", "airbnb/hooks", "plugin:prettier/recommended", "plugin:cypress/recommended"],
+  "env": {
+    "browser": false,
+    "es6": true,
+    "cypress/globals": true
+  },
+  "plugins": ["prettier", "cypress"],
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "rules": {
+    "prettier/prettier": "error",
+    "no-prototype-builtins": 0
+  }
+}

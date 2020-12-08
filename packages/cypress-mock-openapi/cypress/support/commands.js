@@ -1,1 +1,1 @@
-require('../../src/command');
+require('../../src');
