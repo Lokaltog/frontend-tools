@@ -27,6 +27,9 @@ paths:
                           type: string
                         age:
                           type: number
+                      required:
+                        - name
+                        - age
               examples:
                 OK:
                   value:

@@ -9,6 +9,23 @@ const validMethods = [
   'trace',
 ];
 
+Cypress.Commands.add('validateWithOpenAPI', (options = {}) => {
+  const openapiPath = Cypress.env('openapiPath');
+
+  return cy
+    .task('mockWithOpenAPI', {
+      openapiPath,
+      ...options,
+      validateRequest: true,
+      validateResponse: true,
+    })
+    .then((response) => {
+      if (response.violations.output.length > 0 || response.violations.input) {
+        console.log('response', response);
+      }
+    });
+});
+
 Cypress.Commands.add('mockWithOpenAPI', (options = {}) => {
   if (!options.url || options.url.length === 0) {
     throw new Error('URL is missing from mockWithOpenAPI');
@@ -31,7 +48,7 @@ Cypress.Commands.add('mockWithOpenAPI', (options = {}) => {
 
   return cy
     .task('mockWithOpenAPI', { openapiPath, ...options })
-    .then(response => {
+    .then((response) => {
       const { data } = response;
       let { url } = options;
 
@@ -40,7 +57,7 @@ Cypress.Commands.add('mockWithOpenAPI', (options = {}) => {
       }
 
       return cy.intercept(
-        { method: options.method || 'GET', url },
+        { method: options.method || 'GET', url, apiPrefix },
         {
           // Cypress doesn't automatically return CORS headers for intercept calls
           // Wait for https://github.com/cypress-io/cypress/issues/9264 to be officially released
