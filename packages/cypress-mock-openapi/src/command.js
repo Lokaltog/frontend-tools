@@ -31,9 +31,9 @@ Cypress.Commands.add('mockWithOpenAPI', (options = {}) => {
 
   return cy
     .task('mockWithOpenAPI', { openapiPath, ...options })
-    .then((response) => {
-      const data = response.data;
-      let url = options.url;
+    .then(response => {
+      const { data } = response;
+      let { url } = options;
 
       if (apiPrefix && apiPrefix.length > 0) {
         url = apiPrefix + options.url;
