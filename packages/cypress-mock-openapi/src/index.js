@@ -9,8 +9,6 @@ const validMethods = [
   'trace',
 ];
 
-const formatViolation = violation => {};
-
 Cypress.Commands.add('validateWithOpenAPI', (options = {}) => {
   const openapiPath = Cypress.env('openapiPath');
 
@@ -21,9 +19,25 @@ Cypress.Commands.add('validateWithOpenAPI', (options = {}) => {
       validateRequest: true,
       validateResponse: true,
     })
-    .then(response => {
-      if (response.violations.output.length > 0 || response.violations.input) {
-        console.log('response', response);
+    .then(({ violations }) => {
+      if (violations.output && violations.output.length > 0) {
+        const formattedViolations = violations.output.reduce((map, v) => {
+          // eslint-disable-next-line no-param-reassign
+          map[v.path.join('.')] = `${v.code}: ${v.message}`;
+          return map;
+        }, {});
+
+        const error = new Error(
+          `The response doesn't match the OpenAPI contract \n ${JSON.stringify(
+            formattedViolations,
+            null,
+            2,
+          )}`,
+        );
+
+        error.violations = formattedViolations;
+
+        throw error;
       }
     });
 });

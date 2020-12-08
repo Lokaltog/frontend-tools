@@ -98,6 +98,17 @@ context('cypress-mock-openapi', () => {
   });
 
   it('Makes an actual http request and validates the response with OpenAPI', () => {
+    cy.once('fail', err => {
+      expect(err.message).to.contain(
+        `The response doesn't match the OpenAPI contract`,
+      );
+
+      expect(err.violations).to.eql({
+        'body.users[0]': "required: should have required property 'age'",
+        'body.users[1].age': 'type: should be number',
+      });
+    });
+
     cy.validateWithOpenAPI({
       url: '/users',
       apiPrefix: 'http://localhost:8080',
