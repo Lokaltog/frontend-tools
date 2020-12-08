@@ -9,6 +9,8 @@ const validMethods = [
   'trace',
 ];
 
+const formatViolation = violation => {};
+
 Cypress.Commands.add('validateWithOpenAPI', (options = {}) => {
   const openapiPath = Cypress.env('openapiPath');
 
@@ -19,7 +21,7 @@ Cypress.Commands.add('validateWithOpenAPI', (options = {}) => {
       validateRequest: true,
       validateResponse: true,
     })
-    .then((response) => {
+    .then(response => {
       if (response.violations.output.length > 0 || response.violations.input) {
         console.log('response', response);
       }
@@ -48,7 +50,7 @@ Cypress.Commands.add('mockWithOpenAPI', (options = {}) => {
 
   return cy
     .task('mockWithOpenAPI', { openapiPath, ...options })
-    .then((response) => {
+    .then(response => {
       const { data } = response;
       let { url } = options;
 
