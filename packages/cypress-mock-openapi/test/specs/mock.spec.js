@@ -40,4 +40,47 @@ context('cypress-mock-openapi', () => {
       expect(interception.response.body).to.eql({ users: [] });
     });
   });
+
+  it('Throws an error when the url is missing', () => {
+    cy.once('fail', (err) => {
+      expect(err.message).to.be.equal('URL is missing from mockWithOpenAPI');
+    });
+
+    cy.mockWithOpenAPI();
+  });
+
+  it('Throws an error when the method is invalid', () => {
+    cy.once('fail', (err) => {
+      expect(err.message).to.be.equal(
+        `Method 'what' isn't valid, choose a valid HTTP method instead.`,
+      );
+    });
+
+    cy.mockWithOpenAPI({
+      url: '/whatever',
+      method: 'what',
+    });
+  });
+
+  it('Bubbles up errors from Prism HTTP client responses', () => {
+    cy.once('fail', (err) => {
+      expect(err.message).to.contain(`Route not resolved, no path matched`);
+    });
+
+    cy.mockWithOpenAPI({
+      url: '/no-route-exists',
+    });
+  });
+
+  it('Bubbles up errors from Prism HTTP client for options', () => {
+    cy.once('fail', (err) => {
+      expect(err.message).to.contain(
+        `The request path 'url-missing-prefix' must start with a slash`,
+      );
+    });
+
+    cy.mockWithOpenAPI({
+      url: 'url-missing-prefix',
+    });
+  });
 });
