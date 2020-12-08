@@ -83,4 +83,17 @@ context('cypress-mock-openapi', () => {
       url: 'url-missing-prefix',
     });
   });
+
+  it('Provides a response to the browser', () => {
+    cy.mockWithOpenAPI({
+      url: '/users',
+    }).as('getUsers');
+
+    cy.visit('http://localhost:8080');
+
+    cy.wait('@getUsers');
+    cy.contains('Luke (31)').should('be.visible');
+    cy.contains('Han (40)').should('be.visible');
+    cy.contains('Chewy (50)').should('be.visible');
+  });
 });
