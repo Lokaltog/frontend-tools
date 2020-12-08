@@ -5,6 +5,7 @@
     "packages/*"
   ],
   "scripts": {
+    "deploy": "lerna publish",
     "lint": "eslint --config=.eslintrc 'packages/**/*.js'",
     "lint-fix": "eslint --config=.eslintrc 'packages/**/*.js' --fix",
     "prettier": "prettier --check 'packages/**/*.js'"

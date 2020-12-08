@@ -1,16 +1,19 @@
 {
-  "users": {
-    "users": [
+  "users": {},
+  "cards": {
+    "cards": [
       {
-        "name": "Luke"
+        "name": "Queen"
       },
       {
-        "name": "Han",
-        "age": 40
-      },
+        "name": "King"
+      }
+    ]
+  },
+  "dogs": {
+    "dogs": [
       {
-        "name": "Chewy",
-        "age": 50
+        "name": "Nala"
       }
     ]
   }

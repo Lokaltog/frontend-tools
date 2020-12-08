@@ -8,7 +8,7 @@
   "license": "MIT",
   "scripts": {
     "build": "copyfiles -f ./src/*.js ./dist",
-    "prepare": "npm run build",
+    "prepare": "yarn test && npm run build",
     "test": "start-test 8080 'cypress run'",
     "test:open": "start-test 8080 'cypress open'",
     "start": "json-server --port 8080 ./test/json/db.json --static ./test/public"
@@ -19,7 +19,6 @@
   },
   "devDependencies": {
     "cypress": "^6.0.1",
-    "http-server": "^0.12.3",
     "json-server": "^0.16.3",
     "start-server-and-test": "^1.11.6"
   }
