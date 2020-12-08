@@ -7,7 +7,7 @@
   "author": "Heetch",
   "license": "MIT",
   "scripts": {
-    "test": "cypress run",
+    "test": "start-test 8080 'cypress run'",
     "test:open": "start-test 8080 'cypress open'",
     "start": "http-server ./test"
   },
