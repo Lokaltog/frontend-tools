@@ -9,6 +9,10 @@ jobs:
       - name: Checkout branch
         uses: actions/checkout@v1
 
+      - name: Linting
+        with:
+          command: yarn lint
+
       - name: cypress-mock-openapi
         uses: cypress-io/github-action@v2
         with:
