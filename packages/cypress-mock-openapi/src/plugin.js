@@ -4,14 +4,14 @@ const {
 } = require('@stoplight/prism-cli/dist/operations');
 
 function mockWithOpenAPI(options = {}) {
-  const { route, exampleKey, openapi_path } = options;
+  const { url, exampleKey, method, openapiPath } = options;
 
-  return getHttpOperationsFromSpec(openapi_path).then((operations) => {
+  return getHttpOperationsFromSpec(openapiPath).then((operations) => {
     const prism = Prism.createClientFromOperations(operations, {
       mock: { dynamic: false, exampleKey },
     });
-    // Match the same route (GET for now)
-    return prism.get(route);
+
+    return prism.request(url, { method: method || 'get' });
   });
 }
 

@@ -37,6 +37,9 @@ paths:
                         age: 40
                       - name: Chewy
                         age: 50
+                EMPTY:
+                  value:
+                    users: []
 
 
 

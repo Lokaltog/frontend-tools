@@ -2,7 +2,7 @@
   "fixturesFolder": false,
   "integrationFolder": "test/specs",
   "env": {
-    "openapi_path": "test/openapi.yaml",
-    "api_prefix": "http://api-prefix"
+    "openapiPath": "test/openapi.yaml",
+    "apiPrefix": "http://api-prefix"
   }
 }

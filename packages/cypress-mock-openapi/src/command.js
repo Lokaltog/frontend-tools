@@ -1,14 +1,20 @@
 Cypress.Commands.add('mockWithOpenAPI', (options = {}) => {
-  const openapi_path = Cypress.env('openapi_path');
-
-  // Make api_prefix optional
-  const api_prefix = Cypress.env('api_prefix');
+  const openapiPath = Cypress.env('openapiPath');
+  const apiPrefix = options.hasOwnProperty('apiPrefix')
+    ? options.apiPrefix
+    : Cypress.env('apiPrefix');
 
   return cy
-    .task('mockWithOpenAPI', { openapi_path, api_prefix, ...options })
+    .task('mockWithOpenAPI', { openapiPath, ...options })
     .then(({ data }) => {
+      let url = options.url;
+
+      if (apiPrefix && apiPrefix?.length > 0) {
+        url = apiPrefix + options.url;
+      }
+
       return cy.intercept(
-        { method: options.method || 'GET', url: api_prefix + options.route },
+        { method: options.method || 'GET', url },
         {
           // Wait for https://github.com/cypress-io/cypress/issues/9264 to be officially released
           headers: {
