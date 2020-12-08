@@ -96,4 +96,11 @@ context('cypress-mock-openapi', () => {
     cy.contains('Han (40)').should('be.visible');
     cy.contains('Chewy (50)').should('be.visible');
   });
+
+  it('Makes an actual http request and validates the response with OpenAPI', () => {
+    cy.validateWithOpenAPI({
+      url: '/users',
+      apiPrefix: 'http://localhost:8080',
+    });
+  });
 });
