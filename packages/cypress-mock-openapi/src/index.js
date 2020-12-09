@@ -9,6 +9,13 @@ const validMethods = [
   'trace',
 ];
 
+/**
+ * Formats OpenAPI contract violations in a more user-friendly format
+ * and throws an error for the violation type.
+ *
+ * @param {String} type request|response
+ * @param {Array} violations An array of contract violations
+ */
 const handleViolations = (type, violations) => {
   if (violations && violations.length > 0) {
     const formattedViolations = violations.reduce((map, v) => {
@@ -32,6 +39,9 @@ const handleViolations = (type, violations) => {
   }
 };
 
+/**
+ * Valdates request options and throws some useful errors
+ */
 const validateOptions = (options) => {
   if (!options.url || options.url.length === 0) {
     throw new Error('URL is missing from mockWithOpenAPI');
