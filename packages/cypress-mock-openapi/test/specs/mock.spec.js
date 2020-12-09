@@ -5,7 +5,7 @@ context('cypress-mock-openapi', () => {
     cy.mockWithOpenAPI({ url: '/users' }).as('getUsers');
     cy.get('html').then(() => fetch('http://api-prefix/users'));
 
-    cy.wait('@getUsers').then(interception => {
+    cy.wait('@getUsers').then((interception) => {
       expect(interception.response.statusCode).to.eql(200);
       expect(interception.response.body).to.eql({
         users: [
@@ -35,14 +35,14 @@ context('cypress-mock-openapi', () => {
     }).as('getUsersEmpty');
 
     cy.get('html').then(() => fetch('/users'));
-    cy.wait('@getUsersEmpty').then(interception => {
+    cy.wait('@getUsersEmpty').then((interception) => {
       expect(interception.response.statusCode).to.eql(200);
       expect(interception.response.body).to.eql({ users: [] });
     });
   });
 
   it('Throws an error when the url is missing', () => {
-    cy.once('fail', err => {
+    cy.once('fail', (err) => {
       expect(err.message).to.be.equal('URL is missing from mockWithOpenAPI');
     });
 
@@ -50,7 +50,7 @@ context('cypress-mock-openapi', () => {
   });
 
   it('Throws an error when the method is invalid', () => {
-    cy.once('fail', err => {
+    cy.once('fail', (err) => {
       expect(err.message).to.be.equal(
         `Method 'what' isn't valid, choose a valid HTTP method instead.`,
       );
@@ -63,7 +63,7 @@ context('cypress-mock-openapi', () => {
   });
 
   it('Bubbles up errors from Prism HTTP client responses', () => {
-    cy.once('fail', err => {
+    cy.once('fail', (err) => {
       expect(err.message).to.contain(`Route not resolved, no path matched`);
     });
 
@@ -73,7 +73,7 @@ context('cypress-mock-openapi', () => {
   });
 
   it('Bubbles up errors from Prism HTTP client for options', () => {
-    cy.once('fail', err => {
+    cy.once('fail', (err) => {
       expect(err.message).to.contain(
         `The request path 'url-missing-prefix' must start with a slash`,
       );
@@ -97,8 +97,25 @@ context('cypress-mock-openapi', () => {
     cy.contains('Chewy (50)').should('be.visible');
   });
 
+  it('Makes an actual http request and validates the request with OpenAPI', () => {
+    cy.once('fail', (err) => {
+      expect(err.message).to.contain(
+        `The request doesn't match the OpenAPI contract`,
+      );
+
+      expect(err.violations).to.eql({
+        query: "required: should have required property 'page'",
+      });
+    });
+
+    cy.validateWithOpenAPI({
+      url: '/cards',
+      apiPrefix: 'http://localhost:8080',
+    });
+  });
+
   it('Makes an actual http request and validates the response with OpenAPI', () => {
-    cy.once('fail', err => {
+    cy.once('fail', (err) => {
       expect(err.message).to.contain(
         `The response doesn't match the OpenAPI contract`,
       );

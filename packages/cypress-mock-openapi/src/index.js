@@ -9,36 +9,39 @@ const validMethods = [
   'trace',
 ];
 
+const handleViolations = (type, violations) => {
+  if (violations && violations.length > 0) {
+    const formattedViolations = violations.reduce((map, v) => {
+      map[v.path.join('.')] = `${v.code}: ${v.message}`;
+      return map;
+    }, {});
+
+    const error = new Error(
+      `The ${type} doesn't match the OpenAPI contract \n ${JSON.stringify(
+        formattedViolations,
+        null,
+        2,
+      )}`,
+    );
+
+    error.violations = formattedViolations;
+
+    throw error;
+  }
+};
+
 Cypress.Commands.add('validateWithOpenAPI', (options = {}) => {
   const openapiPath = Cypress.env('openapiPath');
 
   return cy
-    .task('mockWithOpenAPI', {
+    .task('getOpenAPIResponse', {
       openapiPath,
       ...options,
       validateRequest: true,
-      validateResponse: true,
     })
     .then(({ violations }) => {
-      if (violations.output && violations.output.length > 0) {
-        const formattedViolations = violations.output.reduce((map, v) => {
-          // eslint-disable-next-line no-param-reassign
-          map[v.path.join('.')] = `${v.code}: ${v.message}`;
-          return map;
-        }, {});
-
-        const error = new Error(
-          `The response doesn't match the OpenAPI contract \n ${JSON.stringify(
-            formattedViolations,
-            null,
-            2,
-          )}`,
-        );
-
-        error.violations = formattedViolations;
-
-        throw error;
-      }
+      handleViolations('request', violations.input);
+      handleViolations('response', violations.output);
     });
 });
 
@@ -63,8 +66,8 @@ Cypress.Commands.add('mockWithOpenAPI', (options = {}) => {
     : Cypress.env('apiPrefix');
 
   return cy
-    .task('mockWithOpenAPI', { openapiPath, ...options })
-    .then(response => {
+    .task('getOpenAPIResponse', { openapiPath, ...options })
+    .then((response) => {
       const { data } = response;
       let { url } = options;
 

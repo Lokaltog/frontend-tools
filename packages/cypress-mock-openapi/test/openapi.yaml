@@ -43,3 +43,37 @@ paths:
                 EMPTY:
                   value:
                     users: []
+  /cards:
+    get:
+      summary: Returns a list of cards.
+      description: A list of cards
+      parameters:
+        - in: query
+          name: page
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A JSON array of card names
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  users:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                      required:
+                        - name
+              examples:
+                OK:
+                  value:
+                    users:
+                      - name: Queen
+                      - name: King
+                      - name: Chewy
