@@ -12,7 +12,9 @@ const validMethods = [
 const handleViolations = (type, violations) => {
   if (violations && violations.length > 0) {
     const formattedViolations = violations.reduce((map, v) => {
-      map[v.path.join('.')] = `${v.code}: ${v.message}`;
+      const violationName = v.path ? v.path.join('.') : 'general';
+      const message = v.code ? `${v.code}: ${v.message}` : v.message;
+      map[violationName] = message;
       return map;
     }, {});
 
@@ -46,6 +48,18 @@ const validateOptions = (options) => {
   }
 };
 
+/**
+ * Performs a network request using the passed options and validates both the request and response.
+ * If any violations were found according to the OpenAPI contract, it throws an error with
+ * an object listing the location and reason of the violations.
+ *
+ * If a network request has been validated, this function returns the actual response.
+ *
+ * @param {*} options Validation options
+ * @param {String} options.url The path of the request e.g. /users
+ * @param {String} options.method A valid HTTP method (case-insensitive)
+ * @param {String} options.apiPrefix A base url of your API, e.g http://my-api.com (no trailing slash)
+ */
 const validateWithOpenAPI = (options = {}) => {
   validateOptions(options);
 
@@ -60,19 +74,18 @@ const validateWithOpenAPI = (options = {}) => {
     .then((response) => {
       handleViolations('request', response.violations.input);
       handleViolations('response', response.violations.output);
-
       return response;
     });
 };
 
 /**
- * Cypress command that mocks network requests by providing responses from an OpenAPI file.
+ * Mocks network requests by providing responses from an OpenAPI file.
  *
  * Usage:
  * cy.mockWithOpenAPI({ url: '/users' });
  *
- * This command uses the cy.intercept command to hijack any network request that matches
- * the options and return a response defined in the OpenAPI file. If no exampleKey was
+ * This command uses cy.intercept to hijack any network request that matches
+ * the options and return an example response defined in the OpenAPI file. If no exampleKey was
  * passed, it will take the first example.
  *
  * @param {Object} options Mocking options

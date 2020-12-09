@@ -137,8 +137,26 @@ context('cypress-mock-openapi', () => {
       url: '/dogs',
       apiPrefix: 'http://localhost:8080',
     }).then((response) => {
-      expect(response.data).to.eql({ dogs: [{ name: 'Paco' }] });
+      expect(response.data).to.eql({ dogs: [{ name: 'Nala' }] });
       expect(response.status).to.equal(200);
+    });
+  });
+
+  it('Throws general errors for violations with no matching fields', () => {
+    cy.once('fail', (err) => {
+      expect(err.message).to.contain(
+        `The request doesn't match the OpenAPI contract`,
+      );
+
+      expect(err.violations).to.eql({
+        general: 'Selected route not found',
+      });
+    });
+
+    cy.validateWithOpenAPI({
+      url: '/users',
+      method: 'put',
+      apiPrefix: 'http://localhost:8080',
     });
   });
 });
