@@ -13,3 +13,13 @@ Picture
 ## Options
 
 ## Examples
+
+# Contributing
+
+## Installation
+
+## Creating a new package
+
+## Testing
+
+## Publishing
