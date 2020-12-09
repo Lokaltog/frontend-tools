@@ -2,4 +2,12 @@
 
 Monorepo for shared JS tools and components
 
-## @heetch/cypress-mock-openapi
+# Contributing
+
+## Installation
+
+## Creating a new package
+
+## Testing
+
+## Publishing
