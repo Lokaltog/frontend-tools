@@ -76,4 +76,30 @@ paths:
                     users:
                       - name: Queen
                       - name: King
-                      - name: Chewy
+                      - name: Joker
+  /dogs:
+    get:
+      summary: Returns a list of dogs.
+      description: A list of great dogs
+      responses:
+        '200':
+          description: A JSON array of dog names
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  users:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                      required:
+                        - name
+              examples:
+                OK:
+                  value:
+                    users:
+                      - name: Paco

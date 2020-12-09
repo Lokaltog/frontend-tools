@@ -131,4 +131,14 @@ context('cypress-mock-openapi', () => {
       apiPrefix: 'http://localhost:8080',
     });
   });
+
+  it('Validates a response that matches the OpenAPI contract', () => {
+    cy.validateWithOpenAPI({
+      url: '/dogs',
+      apiPrefix: 'http://localhost:8080',
+    }).then((response) => {
+      expect(response.data).to.eql({ dogs: [{ name: 'Paco' }] });
+      expect(response.status).to.equal(200);
+    });
+  });
 });

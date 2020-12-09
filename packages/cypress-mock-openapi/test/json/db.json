@@ -23,5 +23,12 @@
         "name": "King"
       }
     ]
+  },
+  "dogs": {
+    "dogs": [
+      {
+        "name": "Paco"
+      }
+    ]
   }
 }

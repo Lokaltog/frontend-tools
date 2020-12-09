@@ -30,22 +30,7 @@ const handleViolations = (type, violations) => {
   }
 };
 
-Cypress.Commands.add('validateWithOpenAPI', (options = {}) => {
-  const openapiPath = Cypress.env('openapiPath');
-
-  return cy
-    .task('getOpenAPIResponse', {
-      openapiPath,
-      ...options,
-      validateRequest: true,
-    })
-    .then(({ violations }) => {
-      handleViolations('request', violations.input);
-      handleViolations('response', violations.output);
-    });
-});
-
-Cypress.Commands.add('mockWithOpenAPI', (options = {}) => {
+const validateOptions = (options) => {
   if (!options.url || options.url.length === 0) {
     throw new Error('URL is missing from mockWithOpenAPI');
   }
@@ -59,6 +44,46 @@ Cypress.Commands.add('mockWithOpenAPI', (options = {}) => {
       `Method '${options.method}' isn't valid, choose a valid HTTP method instead.`,
     );
   }
+};
+
+const validateWithOpenAPI = (options = {}) => {
+  validateOptions(options);
+
+  const openapiPath = Cypress.env('openapiPath');
+
+  return cy
+    .task('getOpenAPIResponse', {
+      openapiPath,
+      ...options,
+      validateRequest: true,
+    })
+    .then((response) => {
+      handleViolations('request', response.violations.input);
+      handleViolations('response', response.violations.output);
+
+      return response;
+    });
+};
+
+/**
+ * Cypress command that mocks network requests by providing responses from an OpenAPI file.
+ *
+ * Usage:
+ * cy.mockWithOpenAPI({ url: '/users' });
+ *
+ * This command uses the cy.intercept command to hijack any network request that matches
+ * the options and return a response defined in the OpenAPI file. If no exampleKey was
+ * passed, it will take the first example.
+ *
+ * @param {Object} options Mocking options
+ * @param {String} options.url The path of the request e.g. /users
+ * @param {String} options.method A valid HTTP method (case-insensitive)
+ * @param {String} options.apiPrefix A base url of your API, e.g http://my-api.com (no trailing slash)
+ * @param {String} options.exampleKey The name of a response example in the OpenAPI file
+ *
+ */
+const mockWithOpenAPI = (options = {}) => {
+  validateOptions(options);
 
   const openapiPath = Cypress.env('openapiPath');
   const apiPrefix = options.hasOwnProperty('apiPrefix')
@@ -90,4 +115,7 @@ Cypress.Commands.add('mockWithOpenAPI', (options = {}) => {
         },
       );
     });
-});
+};
+
+Cypress.Commands.add('mockWithOpenAPI', mockWithOpenAPI);
+Cypress.Commands.add('validateWithOpenAPI', validateWithOpenAPI);
