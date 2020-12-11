@@ -43,9 +43,9 @@ Either in your support/index.js file or commands.js (for a standard configuratio
 import '@heetch/cypress-mock-openapi';
 ```
 
-### Basic usage
+## Basic usage
 
-#### `cy.mockWithOpenAPI(options)`
+### `cy.mockWithOpenAPI(options)`
 
 This command will:
 
@@ -86,7 +86,7 @@ it('Displays a list of users', () => {
 });
 ```
 
-#### `cy.validateWithOpenAPI(options)`
+### `cy.validateWithOpenAPI(options)`
 
 This command can be used to validate that your API returns a response that conforms to the OpenAPI contract (both the request and the response). It will perform the request with the provided options and return the actual response if the validation passes.
 
@@ -113,7 +113,7 @@ it('Throws an error if the validation fails', () => {
 
 > Note: This command doesn't intercept requests
 
-### Options reference
+## Options reference
 
 ## mockWithOpenAPI(options)
 
@@ -141,6 +141,8 @@ Files:
 
 - Command: `packages/cypress-mock-openapi/src/index.js`
 - Plugin: `packages/cypress-mock-openapi/src/plugin.js`
+- Mock server data: `packages/cypress-mock-openapi/test/json/db.json`
+- Spec: `packages/cypress-mock-openapi/test/specs/mock.spec.js`
 
 Commands:
 
