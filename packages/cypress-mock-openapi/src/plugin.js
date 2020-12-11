@@ -11,6 +11,7 @@ function getOpenAPIResponse(options = {}) {
     openapiPath,
     validateRequest,
     apiPrefix,
+    headers,
   } = options;
 
   let requestOptions = {};
@@ -31,7 +32,11 @@ function getOpenAPIResponse(options = {}) {
       mock: { dynamic: false, exampleKey },
     });
 
-    return prism.request(url, { method: method || 'get' }, requestOptions);
+    return prism.request(
+      url,
+      { method: method || 'get', headers: headers || {} },
+      requestOptions,
+    );
   });
 }
 

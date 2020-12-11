@@ -68,6 +68,7 @@ const validateOptions = (options) => {
  * @param {*} options Validation options
  * @param {String} options.url The path of the request e.g. /users
  * @param {String} options.method A valid HTTP method (case-insensitive)
+ * @param {String} options.headers HTTP headers
  * @param {String} options.apiPrefix A base url of your API, e.g http://my-api.com (no trailing slash)
  */
 const validateWithOpenAPI = (options = {}) => {

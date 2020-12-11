@@ -135,6 +135,9 @@ context('cypress-mock-openapi', () => {
   it('Validates a response that matches the OpenAPI contract', () => {
     cy.validateWithOpenAPI({
       url: '/dogs',
+      headers: {
+        Authorization: 'Password',
+      },
       apiPrefix: 'http://localhost:8080',
     }).then((response) => {
       expect(response.data).to.eql({ dogs: [{ name: 'Nala' }] });

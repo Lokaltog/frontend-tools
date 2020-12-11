@@ -78,6 +78,12 @@ paths:
                       - name: King
                       - name: Joker
   /dogs:
+    parameters:
+      - schema:
+          type: string
+        name: Authorization
+        in: header
+        required: true
     get:
       summary: Returns a list of dogs.
       description: A list of great dogs
