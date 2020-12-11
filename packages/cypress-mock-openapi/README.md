@@ -7,7 +7,9 @@ This package contains a Cypress plugin and command to mock and validate response
 ## Installation
 
 `npm install --dev @heetch/cypress-mock-openapi`
+
 OR
+
 `yarn add --dev @heetch/cypress-mock-openapi`
 
 ## Configuration
@@ -21,7 +23,7 @@ After installing the package, configure Cypress with the following [environment 
 }
 ```
 
-> The `apiPrefix` can be set globally but also overriden in both commands
+> The `apiPrefix` can be set globally but also overridden in both commands (or omitted completely).
 
 In your Cypress plugin file:
 
@@ -43,7 +45,7 @@ import '@heetch/cypress-mock-openapi';
 
 ### Basic usage
 
-#### `cy.mockWithOpenAPI`
+#### `cy.mockWithOpenAPI(options)`
 
 This command will:
 
@@ -74,7 +76,7 @@ it('Displays a list of users', () => {
   // When the page loads, fetch /users
   cy.get('html').then(() => fetch('http://my-api.com/users'));
 
-  // Await the results of the mock and make assertions
+  // Await the results of the interception and make assertions on the mocked response
   cy.wait('@getActiveUsers').then((interception) => {
     expect(interception.response.statusCode).to.eql(200);
     expect(interception.response.body).to.eql({
@@ -84,7 +86,7 @@ it('Displays a list of users', () => {
 });
 ```
 
-#### `cy.validateWithOpenAPI`
+#### `cy.validateWithOpenAPI(options)`
 
 This command can be used to validate that your API returns a response that conforms to the OpenAPI contract (both the request and the response). It will perform the request with the provided options and return the actual response if the validation passes.
 
@@ -109,4 +111,40 @@ it('Throws an error if the validation fails', () => {
 });
 ```
 
-### Options
+> Note: This command doesn't intercept requests
+
+### Options reference
+
+## mockWithOpenAPI(options)
+
+| Name       | Type     | Optional | Default     | Example                                                   | Description                                                                       |
+| ---------- | -------- | -------- | ----------- | --------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| apiPrefix  | `String` | `false`  | `undefined` | `http://my-api.com`                                       | A prefix for API calls. Can also be configured global using Cypress env variables |
+| url        | `String` | `false`  | `undefined` | `/users` `/dogs?cute=true`                                | The pathname and query parameters of the request                                  |
+| exampleKey | `String` | `true`   | `undefined` | 'OK'                                                      | By default the first example will be used if none are specified                   |
+| method     | `String` | `true`   | `'GET'`     | https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods | Any supported HTTP method                                                         |
+
+## validateWithOpenAPI(options)
+
+| Name      | Type     | Optional | Default     | Example                                                   | Description                                                                       |
+| --------- | -------- | -------- | ----------- | --------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| apiPrefix | `String` | `false`  | `undefined` | `http://my-api.com`                                       | A prefix for API calls. Can also be configured global using Cypress env variables |
+| url       | `String` | `false`  | `undefined` | `/users` `/dogs?cute=true`                                | The pathname and query parameters of the request                                  |
+| method    | `String` | `true`   | `'GET'`     | https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods | Any supported HTTP method                                                         |
+| headers   | `Object` | `true`   | `{}`        | `{ Authorization: 'Basic 1234' }`                         | The headers required to perform the actual HTTP request                           |
+
+## Developing and testing locally
+
+First, install the package dependencies for this workspace at the root of the repo, then run `yarn install` or `npm install` in this folder.
+
+Files:
+
+- Command: `packages/cypress-mock-openapi/src/index.js`
+- Plugin: `packages/cypress-mock-openapi/src/plugin.js`
+
+Commands:
+
+```bash
+yarn test:open # Opens the Cypress UI
+yarn test # Runs the tests in a headless browser
+```
