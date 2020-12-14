@@ -1,6 +1,6 @@
 {
   "name": "@heetch/cypress-mock-openapi",
-  "version": "0.0.2-alpha.0",
+  "version": "0.0.3-alpha.0",
   "description": "Cypress command to stub network requests using OpenAPI examples",
   "main": "./dist/index.js",
   "repository": "https://github.com/heetch/frontend-tools",
