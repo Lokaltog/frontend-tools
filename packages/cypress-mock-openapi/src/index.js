@@ -124,14 +124,32 @@ const mockWithOpenAPI = (options = {}) => {
         url = apiPrefix + options.url;
       }
 
+      // Always return 200 on options until supported by Cypress
+      // cy.intercept(
+      //   { method: 'OPTIONS', url, apiPrefix },
+      //   {
+      //     statusCode: 200,
+      //     headers: {
+      //       'access-control-max-age': '-1',
+      //       'access-control-allow-credentials': 'true',
+      //       'access-control-allow-origin': '*',
+      //       'access-control-allow-methods': '*',
+      //       'access-control-allow-headers': '*',
+      //     },
+      //   },
+      // );
+
       return cy.intercept(
         { method: options.method || 'GET', url, apiPrefix },
         {
           // Cypress doesn't automatically return CORS headers for intercept calls
           // Wait for https://github.com/cypress-io/cypress/issues/9264 to be officially released
           headers: {
-            'access-control-allow-origin': window.location.origin,
-            'Access-Control-Allow-Credentials': 'true',
+            'access-control-max-age': '-1',
+            'access-control-allow-credentials': 'true',
+            'access-control-allow-origin': '*',
+            'access-control-allow-methods': '*',
+            'access-control-allow-headers': '*',
             ...response.headers,
           },
           body: data,
