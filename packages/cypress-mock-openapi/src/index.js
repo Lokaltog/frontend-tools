@@ -9,6 +9,14 @@ const validMethods = [
   'trace',
 ];
 
+const corsHeaders = {
+  'access-control-max-age': '-1',
+  'access-control-allow-credentials': 'true',
+  'access-control-allow-origin': '*',
+  'access-control-allow-methods': '*',
+  'access-control-allow-headers': '*',
+};
+
 /**
  * Formats OpenAPI contract violations in a more user-friendly format
  * and throws an error for the violation type.
@@ -124,14 +132,22 @@ const mockWithOpenAPI = (options = {}) => {
         url = apiPrefix + options.url;
       }
 
+      // Always return 200 on OPTIONS until supported by Cypress
+      cy.intercept(
+        { method: 'OPTIONS', url },
+        {
+          statusCode: 200,
+          headers: corsHeaders,
+        },
+      );
+
       return cy.intercept(
-        { method: options.method || 'GET', url, apiPrefix },
+        { method: options.method || 'GET', url },
         {
           // Cypress doesn't automatically return CORS headers for intercept calls
           // Wait for https://github.com/cypress-io/cypress/issues/9264 to be officially released
           headers: {
-            'access-control-allow-origin': window.location.origin,
-            'Access-Control-Allow-Credentials': 'true',
+            ...corsHeaders,
             ...response.headers,
           },
           body: data,
