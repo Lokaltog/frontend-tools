@@ -1,0 +1,31 @@
+{
+  "name": "@heetch/cypress-mock-openapi",
+  "version": "0.0.3-alpha.0",
+  "description": "Cypress command to stub network requests using OpenAPI examples",
+  "main": "./dist/index.js",
+  "repository": "https://github.com/heetch/frontend-tools",
+  "author": "Heetch",
+  "license": "MIT",
+  "scripts": {
+    "build": "copyfiles -f ./src/*.js ./dist",
+    "prepare": "yarn test && npm run build",
+    "test": "start-test 8080 'cypress run'",
+    "test:open": "start-test 8080 'cypress open'",
+    "start": "json-server --port 8080 ./test/json/db.json --static ./test/public"
+  },
+  "dependencies": {
+    "@stoplight/prism-cli": "^4.1.2",
+    "@stoplight/prism-http": "^4.1.2"
+  },
+  "devDependencies": {
+    "cypress": "^6.0.1",
+    "json-server": "^0.16.3",
+    "start-server-and-test": "^1.11.6"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}
