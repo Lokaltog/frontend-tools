@@ -1,6 +1,6 @@
 ## @heetch/cypress-mock-openapi
 
-[![CI status](https://github.com/heetch/frontend-tools/workflows/push/badge.svg)]
+![Push](https://github.com/heetch/frontend-tools/workflows/Push/badge.svg)
 
 This package contains a Cypress plugin and command to mock and validate responses in tests using an OpenAPI (Swagger) contract.
 
