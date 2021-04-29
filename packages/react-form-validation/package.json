@@ -1,0 +1,55 @@
+{
+  "name": "@heetch/react-form-validation",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "author": "Heetch",
+  "license": "MIT",
+  "main": "dist/react-form-validation.cjs.js",
+  "module": "dist/react-form-validation.esm.js",
+  "src": "lib/react-form-validation.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "dist",
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/heetch/frontend-tools.git"
+  },
+  "scripts": {
+    "build": "react-builder",
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/heetch/frontend-tools/issues"
+  },
+  "homepage": "https://github.com/heetch/frontend-tools#readme",
+  "devDependencies": {
+    "@heetch/react-builder": "^1.0.0",
+    "final-form": "^4.20.2",
+    "final-form-set-field-data": "^1.0.2",
+    "lodash.isequal": "^4.5.0",
+    "prop-types": "^15.7.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-final-form": "^6.5.3",
+    "styled-components": "^5.2.3"
+  },
+  "peerDependencies": {
+    "final-form": "^4.20.2",
+    "final-form-set-field-data": "^1.0.2",
+    "lodash.isequal": "^4.5.0",
+    "prop-types": "^15.7.2",
+    "react": "17.x",
+    "react-dom": "17.x",
+    "react-final-form": "^6.5.3",
+    "styled-components": "^5.2.3"
+  }
+}

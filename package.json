@@ -5,12 +5,22 @@
     "packages/*"
   ],
   "scripts": {
-    "deploy": "lerna publish",
+    "build": "lerna run build",
+    "deploy": "lerna publish && npm run deploy-storybook",
     "lint": "eslint --config=.eslintrc 'packages/**/*.js'",
     "lint-fix": "eslint --config=.eslintrc 'packages/**/*.js' --fix",
-    "prettier": "prettier --check 'packages/**/*.js'"
+    "prettier": "prettier --check 'packages/**/*.js'",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook",
+    "deploy-storybook": "npm run build-storybook && gh-pages -d storybook-static"
   },
   "devDependencies": {
+    "@babel/core": "^7.14.0",
+    "@storybook/addon-actions": "^6.2.9",
+    "@storybook/addon-essentials": "^6.2.9",
+    "@storybook/addon-links": "^6.2.9",
+    "@storybook/react": "^6.2.9",
+    "babel-loader": "^8.2.2",
     "copyfiles": "^2.4.1",
     "eslint": "^7.15.0",
     "eslint-config-airbnb": "^18.2.1",
@@ -21,7 +31,10 @@
     "eslint-plugin-prettier": "^3.2.0",
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "gh-pages": "^3.1.0",
     "lerna": "^3.22.1",
-    "prettier": "^2.2.1"
+    "prettier": "^2.2.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   }
 }

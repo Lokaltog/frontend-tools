@@ -103,5 +103,10 @@ dist
 # TernJS port file
 .tern-port
 
+# Media
 screenshots
 videos
+
+# IDE & editors
+.idea
+.vscode
