@@ -1,6 +1,6 @@
 {
   "name": "@heetch/react-form-validation",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "keywords": [],
   "author": "Heetch",
@@ -32,7 +32,7 @@
   },
   "homepage": "https://github.com/heetch/frontend-tools#readme",
   "devDependencies": {
-    "@heetch/react-builder": "^1.0.0",
+    "@heetch/react-builder": "^1.0.1",
     "final-form": "^4.20.2",
     "final-form-set-field-data": "^1.0.2",
     "lodash.isequal": "^4.5.0",
