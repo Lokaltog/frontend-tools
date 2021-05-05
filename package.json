@@ -6,7 +6,7 @@
   ],
   "scripts": {
     "build": "lerna run build",
-    "deploy": "lerna publish && npm run deploy-storybook",
+    "deploy": "lerna publish --include-merged-tags && npm run deploy-storybook",
     "lint": "eslint --config=.eslintrc 'packages/**/*.js'",
     "lint-fix": "eslint --config=.eslintrc 'packages/**/*.js' --fix",
     "prettier": "prettier --check 'packages/**/*.js'",
