@@ -1,6 +1,6 @@
 {
   "name": "@heetch/react-code",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Code display component with syntax highlighting",
   "keywords": [],
   "author": "Heetch",
@@ -32,16 +32,16 @@
   },
   "homepage": "https://github.com/heetch/frontend-tools#readme",
   "devDependencies": {
-    "@heetch/react-builder": "^1.0.0",
+    "@heetch/react-builder": "^1.0.1",
+    "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "prop-types": "^15.7.2",
     "react-syntax-highlighter": "^15.4.3"
   },
   "peerDependencies": {
+    "prop-types": "^15.7.2",
     "react": "17.x",
     "react-dom": "17.x",
-    "prop-types": "^15.7.2",
     "react-syntax-highlighter": "^15.4.3"
   }
 }
