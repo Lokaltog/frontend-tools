@@ -14,13 +14,18 @@
     "start": "json-server --port 8080 ./test/json/db.json --static ./test/public"
   },
   "dependencies": {
-    "@stoplight/prism-cli": "^4.1.2",
-    "@stoplight/prism-http": "^4.1.2"
+    "@stoplight/prism-cli": "^4.2.5",
+    "@stoplight/prism-http": "^4.2.5"
   },
   "devDependencies": {
     "cypress": "^6.0.1",
     "json-server": "^0.16.3",
     "start-server-and-test": "^1.11.6"
+  },
+  "resolutions": {
+    "minimist": "1.2.5",
+    "sanitize-html": "2.3.2",
+    "postcss": "8.2.10"
   },
   "files": [
     "dist"
