@@ -104,7 +104,7 @@ context('cypress-mock-openapi', () => {
       );
 
       expect(err.violations).to.eql({
-        query: "required: should have required property 'page'",
+        query: "required: must have required property 'page'",
       });
     });
 
